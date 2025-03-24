@@ -1,0 +1,56 @@
+.past-content{
+    padding: 50px;
+    animation: contentLoad 0.8s linear forwards;
+    opacity: 0;
+    animation-delay: 1.9s;
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 70px;
+}
+
+.past-title{
+    position: relative;
+    font-family: "Jersey 25";
+    height: 50px;
+    text-align: center;
+    color: white;
+    font-size: 35px;
+}
+
+.past-desc{
+    margin: auto;
+    margin-top: 30px;
+    color: white;
+    font-family: "Jersey 25";
+    font-size: 21px;
+    width: 70%;
+}
+
+.past-title-img{
+    height: 50px;
+    position: relative;
+    top: 12px;
+}
+
+.past-link{
+    color: white;
+}
+
+@keyframes contentLoad {
+    0%{
+        opacity: 0;
+    }
+
+    100%{
+        opacity: 100;
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+    .past-content{
+        animation-delay: 1.2s;
+    }
+}

@@ -1,0 +1,35 @@
+.three-intro-container{
+    height: 100vh;
+    width: 100vw;
+}
+
+.intro-background{
+    background-color: #241933;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.intro-background-env{
+    height: 100vh;
+    width: 100vw;
+}
+
+.intro-background-canvas{
+    background-color: rgb(23, 23, 23);
+    height: 100%;
+}
+
+.intro-background-logo{
+    position: absolute;
+    z-index: 10;
+    top:0%;
+    left: 50%;
+    height: 90%;
+    opacity: 70%;
+    transform: translateX(-50%);
+    width: 90%;
+}

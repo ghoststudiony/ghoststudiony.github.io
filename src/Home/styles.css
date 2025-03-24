@@ -1,0 +1,26 @@
+body{
+    background-color: black;
+}
+
+.home-container{
+    width: 100%;
+    background-color: black;
+}
+
+.home-logo{
+    position: absolute;
+    top: 1vh;
+    left: 50%;
+    height: 23vh;
+    z-index: 2;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+
+.home-page-game{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1;
+}

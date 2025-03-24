@@ -1,0 +1,55 @@
+.progress-loader{
+    position: fixed;
+    z-index: 20;
+    bottom: 0;
+    width: 100vw;
+    height: 70px;
+    background-color: rgb(23, 23, 23);
+    left:0;
+}
+
+.progress-bar{
+    background-color: transparent;
+    backdrop-filter: invert(1);
+    -webkit-backdrop-filter: invert(1);
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.progress-title{
+    font-family: "Press Start 2P";
+    font-size: 18px;
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    margin: 0;
+    line-height: 30px;
+    width: max-content;
+}
+
+.flashing-underline {
+    position: relative;
+    /* Optional: adjust text properties as needed */
+    animation: flash 1s infinite;
+  }
+  
+  @keyframes flash {
+    0%, 100% {
+      border-bottom: 3px solid white;
+    }
+    50% {
+        border-bottom: none;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    .progress-title{
+      font-size: 14px;
+    }
+  }

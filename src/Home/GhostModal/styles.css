@@ -1,0 +1,136 @@
+.ghost-modal {
+    position: fixed;
+    width: 800px;
+    max-height: 450px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    overflow: hidden;
+    animation: borderAnim 0.8s linear forwards;
+    animation-delay: 1.4s;
+}
+
+.ghost-modal-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    background-color: black;
+    animation: revealModal 1.6s linear forwards;
+    -webkit-mask-image: linear-gradient(to left, transparent 0, black 30%, black 100%);
+    mask-image: linear-gradient(to left, transparent 0, black 30%, black 100%);
+    animation-delay: 100ms;
+}
+
+.close-icon {
+    position: absolute;
+    right: 0;
+    height: 30px;
+    width: 30px;
+    padding: 10px;
+    z-index: 20;
+    animation: contentLoad 0.8s linear forwards;
+    opacity: 0;
+    animation-delay: 1.4s;
+}
+
+.close-icon-img{
+    height: 100%;
+    width: 100%;
+}
+
+@keyframes borderAnim {
+    0%{
+        border: 1px solid rgba(0, 255, 8, 0);
+    }
+
+    100%{
+        border: 1px solid rgba(0, 255, 8, 1);
+    }
+}
+
+@keyframes contentLoad {
+    0%{
+        opacity: 0;
+    }
+
+    100%{
+        opacity: 100;
+    }
+}
+
+@keyframes revealModal {
+    0% {
+        width: 0;
+        -webkit-mask-image: linear-gradient(to left, transparent 0, black 20%, black 100%);
+        mask-image: linear-gradient(to left, transparent 0, black 20%, black 100%);
+    }
+
+    50% {
+        width: 100%;
+        -webkit-mask-image: linear-gradient(to left, transparent 0, black 20%, black 100%);
+        mask-image: linear-gradient(to left, transparent 0, black 20%, black 100%);
+    }
+
+    100% {
+        width: 130%;
+        -webkit-mask-image: linear-gradient(to left, transparent 0, black 20%, black 100%);
+        mask-image: linear-gradient(to left, transparent 0, black 20%, black 100%);
+    }
+}
+
+.matrix-container {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Each line is absolutely positioned and animated */
+.matrix-line {
+    position: absolute;
+    white-space: nowrap;
+    font-size: 20px;
+    /* Animation that moves the text from left (-100%) to right (100%) */
+    animation: slide 8s linear forwards;
+}
+
+/* Define keyframes for the sliding animation */
+@keyframes slide {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    /* Your mobile-specific styles go here */
+    .ghost-modal {
+        position: fixed;
+        width: 90vw;
+        max-height: 90vh;
+        height: fit-content;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        overflow: hidden;
+        animation: borderAnim 0.8s linear forwards;
+        animation-delay: 1s;
+    }
+
+    .ghost-modal-bg {
+        animation: revealModal 0.9s linear forwards;
+        animation-delay: 100ms;
+    }
+
+    .close-icon{
+        animation-delay: 1s;
+    }
+  }
