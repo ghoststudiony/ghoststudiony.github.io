@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+<meta name="googlebot" content="noindex, nofollow" />
+<title>Yuliang Xue — Ghost Dev</title>
+<style>
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    background: #000;
+    color: #fff;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0.01em;
+  }
+
+  body {
+    min-height: 100vh;
+    padding: 64px 72px 80px;
+    position: relative;
+  }
+
+  /* Subtle grid overlay for techy feel */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 64px 64px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Soft glow */
+  body::after {
+    content: "";
+    position: fixed;
+    top: -200px;
+    right: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255,255,255,0.07) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* Top bar — logo + meta */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo img {
+    height: 84px;
+    width: auto;
+    display: block;
+  }
+
+  .meta-right {
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #fff;
+    text-align: right;
+  }
+
+  .meta-right .dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 50%;
+    margin-right: 10px;
+    vertical-align: middle;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .meta-right .sub {
+    display: block;
+    margin-top: 6px;
+    color: rgba(255,255,255,0.75);
+    font-size: 10px;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+
+  /* Hero / Intro */
+  .hero {
+    padding: 24px 0 80px;
+    position: relative;
+  }
+
+  .hero .tag {
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 36px;
+  }
+
+  .hero h1 {
+    font-size: clamp(44px, 6vw, 88px);
+    font-weight: 200;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    margin-bottom: 36px;
+    color: #fff;
+  }
+
+  .hero h1 .accent {
+    display: inline-block;
+    font-style: italic;
+    font-weight: 300;
+    color: #fff;
+  }
+
+  .hero .intro-text {
+    font-size: 22px;
+    line-height: 1.55;
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    max-width: 780px;
+    color: #fff;
+    margin-bottom: 40px;
+  }
+
+  .hero .intro-text em {
+    font-style: italic;
+    color: #fff;
+  }
+
+  .hero-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .link-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 20px;
+    border: 1px solid rgba(255,255,255,0.4);
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    transition: background 0.25s ease, border-color 0.25s ease;
+  }
+
+  .link-pill:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: #fff;
+  }
+
+  .link-pill .k {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  .link-pill .v {
+    font-size: 15px;
+  }
+
+  .link-pill .arrow {
+    font-size: 14px;
+  }
+
+  /* Projects */
+  .section.projects-section {
+    display: block;
+  }
+
+  .section.projects-section .section-label {
+    margin-bottom: 36px;
+    width: 240px;
+    padding-top: 0;
+    margin-left: 0;
+  }
+
+  .projects-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .project-row {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 32px;
+    align-items: stretch;
+    position: relative;
+    margin-left: 0;
+  }
+
+  .project-aside {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* Subtle connector line */
+  .project-aside::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    width: 32px;
+    height: 1px;
+    background: rgba(255,255,255,0.18);
+    transform: translateY(-50%);
+    z-index: 2;
+  }
+
+  .name-card {
+    width: 100%;
+    margin-left: 0;
+    border: 1px solid rgba(255,255,255,0.22);
+    background: rgba(255,255,255,0.025);
+    padding: 28px 24px;
+    text-align: left;
+    position: relative;
+  }
+
+  .aside-num {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: #fff;
+    opacity: 0.6;
+    margin-bottom: 18px;
+  }
+
+  .aside-name {
+    font-size: 28px;
+    font-weight: 200;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: #fff;
+    margin-bottom: 18px;
+  }
+
+  .aside-year {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #fff;
+    opacity: 0.6;
+  }
+
+  .project {
+    position: relative;
+    padding: 32px 36px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background:
+      radial-gradient(600px 300px at 0% 0%, rgba(255,255,255,0.05), transparent 60%),
+      linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0) 60%);
+    overflow: hidden;
+  }
+
+  .project::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  }
+
+  .project-head {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+
+  .proj-index {
+    display: none;
+  }
+
+  .proj-meta {
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+    opacity: 0.75;
+  }
+
+  .proj-meta .sep {
+    opacity: 0.35;
+  }
+
+  .role-line {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #fff;
+    opacity: 0.85;
+    margin-bottom: 14px;
+    padding-left: 14px;
+    border-left: 2px solid #fff;
+  }
+
+  .proj-title {
+    font-size: clamp(36px, 4.5vw, 56px);
+    font-weight: 200;
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    margin-bottom: 18px;
+    color: #fff;
+  }
+
+  .proj-desc {
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 720px;
+    margin-bottom: 32px;
+    color: #fff;
+    opacity: 0.9;
+  }
+
+  .proj-gallery {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 28px;
+    min-height: 320px;
+  }
+
+  .proj-gallery.single {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    min-height: 0;
+  }
+
+  .shot-feature {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .shot-feature.sm {
+    max-width: 360px;
+    margin: 0 auto;
+  }
+
+  .shot-feature::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    box-shadow: inset 0 0 120px rgba(0,0,0,0.6);
+    pointer-events: none;
+  }
+
+  .shot {
+    border: 1px solid rgba(255,255,255,0.2);
+    background:
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0 10px, rgba(255,255,255,0) 10px 20px),
+      #0a0a0a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #fff;
+    opacity: 0.95;
+    position: relative;
+    aspect-ratio: auto;
+  }
+
+  .shot span {
+    opacity: 0.55;
+  }
+
+  .shot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .shot-lg {
+    grid-row: 1 / span 2;
+  }
+
+  .proj-foot {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag-chip {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border: 1px solid rgba(255,255,255,0.35);
+    color: #fff;
+  }
+
+  .proj-link {
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 1px solid #fff;
+    padding-bottom: 2px;
+  }
+
+  /* Section header helper */
+  .section {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+    padding: 56px 0;
+    border-top: 1px solid rgba(255,255,255,0.25);
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: #fff;
+    padding-top: 8px;
+  }
+
+  .section-label .num {
+    display: block;
+    color: #fff;
+    font-size: 11px;
+    margin-bottom: 12px;
+    opacity: 0.7;
+  }
+
+  /* Disciplines */
+  .disc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .disc {
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 24px 20px;
+    background: rgba(255,255,255,0.02);
+  }
+
+  .disc .idx {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: #fff;
+    opacity: 0.7;
+    margin-bottom: 16px;
+  }
+
+  .disc .name {
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+    color: #fff;
+  }
+
+  .disc .desc {
+    font-size: 12px;
+    line-height: 1.55;
+    color: #fff;
+    opacity: 0.85;
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 72px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.25);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  footer .sig {
+    font-size: 56px;
+    letter-spacing: -0.03em;
+    font-weight: 200;
+    color: #fff;
+    text-transform: none;
+  }
+
+  @media (max-width: 760px) {
+    body { padding: 40px 24px; }
+    .section {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .topbar { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .meta-right { text-align: left; }
+    .project-row { grid-template-columns: 1fr; gap: 16px; }
+    .project-aside { position: static; }
+    .project { padding: 20px; }
+    .proj-gallery {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(3, 200px);
+    }
+    .shot-lg { grid-row: auto; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <div class="topbar">
+    <div class="logo">
+      <img src="ghoststudiologo.PNG" alt="Ghost Studio" />
+    </div>
+    <div class="meta-right">
+      <div><span class="dot"></span>Selected Works</div>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="tag">Creative Developer · Designer</div>
+    <h1>
+      Yuliang<br />
+      Xue
+    </h1>
+    <p class="intro-text">
+      I'm a creative programmer and designer who blends <em>programming, design, and production</em> to build projects that stretch the limits of my imagination. My work spans from developing websites for fashion and jewelry brands to crafting unique web and game experiences.
+    </p>
+    <div class="hero-links">
+      <a class="link-pill" href="https://ghoststudio.dev">
+        <span class="k">Studio</span>
+        <span class="v">ghoststudio.dev</span>
+        <span class="arrow">↗</span>
+      </a>
+      <a class="link-pill" href="https://github.com/yxue8">
+        <span class="k">GitHub</span>
+        <span class="v">github.com/yxue8</span>
+        <span class="arrow">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="section projects-section">
+    <div class="section-label"><span class="num">02 —</span>Selected Works</div>
+    <div class="projects-wrap">
+
+      <div class="project-row">
+        <aside class="project-aside">
+          <div class="name-card">
+            <div class="aside-num">P / 001</div>
+            <div class="aside-name">SOOT Spiral</div>
+            <div class="aside-year">2025 — Present</div>
+          </div>
+        </aside>
+        <article class="project">
+          <div class="project-head">
+            <div class="proj-index">P / 001</div>
+            <div class="proj-meta">
+              <span>Visual Search / AI</span>
+              <span class="sep">/</span>
+              <span>SOOT</span>
+              <span class="sep">/</span>
+              <span>2025 — Present</span>
+            </div>
+          </div>
+          <div class="role-line">Role / Full Stack &amp; Infrastructure</div>
+          <h2 class="proj-title">SOOT Spiral</h2>
+          <p class="proj-desc">
+            A visual search engine powered by AI that helps users discover, surface, and organize imagery across the internet and their own collections. I contributed across the entire stack, from the 3D frontend and component structure to the backend architecture, infrastructure, AI agentic flows, and integrations with external platforms.
+          </p>
+          <div class="proj-gallery single">
+            <div class="shot shot-feature">
+              <img src="spiral.png" alt="SOOT Spiral" />
+            </div>
+          </div>
+          <div class="proj-foot">
+            <a class="proj-link" href="https://spiral.soot.com" target="_blank" rel="noopener">visit spiral ↗</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="project-row">
+        <aside class="project-aside">
+          <div class="name-card">
+            <div class="aside-num">P / 002</div>
+            <div class="aside-name">Obsess VR</div>
+            <div class="aside-year">2021 — 2023</div>
+          </div>
+        </aside>
+        <article class="project">
+          <div class="project-head">
+            <div class="proj-index">P / 002</div>
+            <div class="proj-meta">
+              <span>VR Commerce</span>
+              <span class="sep">/</span>
+              <span>Obsess VR</span>
+              <span class="sep">/</span>
+              <span>2021 — 2023</span>
+            </div>
+          </div>
+          <div class="role-line">Role / Software Engineer</div>
+          <h2 class="proj-title">Obsess VR</h2>
+          <p class="proj-desc">
+            Joined Obsess and built the micro frontend architecture that allowed the platform to power hundreds of virtual stores from a single shared codebase. Developed reusable components that shipped core experiences across clients, including the "Shop with Friends" multiplayer feature.
+          </p>
+          <div class="proj-gallery single">
+            <div class="shot shot-feature">
+              <img src="obsess.webp" alt="Obsess VR" />
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="project-row">
+        <aside class="project-aside">
+          <div class="name-card">
+            <div class="aside-num">P / 003</div>
+            <div class="aside-name">Don't Even Think</div>
+            <div class="aside-year">2018</div>
+          </div>
+        </aside>
+        <article class="project">
+          <div class="project-head">
+            <div class="proj-index">P / 003</div>
+            <div class="proj-meta">
+              <span>Video Game</span>
+              <span class="sep">/</span>
+              <span>Perfect World Entertainment</span>
+              <span class="sep">/</span>
+              <span>2018</span>
+            </div>
+          </div>
+          <div class="role-line">Role / Game Designer</div>
+          <h2 class="proj-title">Don't Even Think</h2>
+          <p class="proj-desc">
+            A competitive multiplayer survival video game published by Perfect World Entertainment. I designed core game systems including the weapon system tuned for competitive play, and integrated the localization pipeline, shipping the title across multiple languages for a global audience.
+          </p>
+          <div class="proj-gallery single">
+            <div class="shot shot-feature sm">
+              <img src="donteventhink.jpeg" alt="Don't Even Think" />
+            </div>
+          </div>
+          <div class="proj-foot">
+            <a class="proj-link" href="https://www.youtube.com/watch?v=fxYHj6dfE6A" target="_blank" rel="noopener">watch trailer ↗</a>
+          </div>
+        </article>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div>© Yuliang Xue · All rights reserved</div>
+    <div class="sig">ghost.</div>
+  </footer>
+
+</main>
+</body>
+</html>
